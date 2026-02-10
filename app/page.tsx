@@ -71,7 +71,7 @@ export default function Home() {
             <Link href={session ? "/dashboard" : "/auth/login"} className={cn(buttonVariants())}>
               Get Started
             </Link>
-            <a href="https://github.com/tibimate/next-starter" className={cn(buttonVariants({ variant: "outline" }))}>
+            <a href="https://github.com/tibimate/nd-starter" className={cn(buttonVariants({ variant: "outline" }))} target="_black">
               View on GitHub
             </a>
           </div>
