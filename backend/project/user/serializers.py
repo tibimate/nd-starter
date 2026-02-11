@@ -166,3 +166,71 @@ class ChangePasswordSerializer(serializers.Serializer):
         user.set_password(password)
         user.save()
         return user
+    
+class RegisterUserSerializer(serializers.ModelSerializer):
+    first_name = serializers.CharField(max_length=50, min_length=1, required=True, allow_blank=True)
+    last_name = serializers.CharField(max_length=50, min_length=1, required=True, allow_blank=True)
+    username = serializers.CharField(max_length=50, min_length=3, required=True)
+    password = serializers.CharField(max_length=128, write_only=True, required=True)
+    confirm_password = serializers.CharField(max_length=128, write_only=True, required=True)
+    email = serializers.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'password', 'confirm_password']
+
+    def validate_username(self, value):
+        if (value and not value.strip()) or value == "":
+            raise serializers.ValidationError("Username cannot be empty.")
+        
+        if User.objects.filter(username__exact=value).exists():
+            raise serializers.ValidationError("The specified username already exists.")
+        return value
+    
+    def validate_email(self, value):
+        if (value and not value.strip()) or value == "":
+            raise serializers.ValidationError("Email cannot be empty.")
+        # Validate email format
+        try:
+            validate_email(value)
+        except ValidationError:
+            raise serializers.ValidationError("Enter a valid email address.")
+        
+        if User.objects.filter(email__exact=value).exists():
+            raise serializers.ValidationError("The specified email already exists.")
+        
+        return value
+    
+    def validate(self, data):
+        if data['password'] != data['confirm_password']:
+            raise serializers.ValidationError({'confirm_password': "The passwords do not match."})
+        
+        # Custom password validation
+        password = data['password']
+        
+        if len(password) < 6:
+            raise serializers.ValidationError({'password': "Password must be at least 6 characters long."})
+        
+        if not re.search(r'[A-Z]', password):
+            raise serializers.ValidationError({'password': "Password must contain at least one uppercase letter."})
+        
+        if not re.search(r'[0-9]', password):
+            raise serializers.ValidationError({'password': "Password must contain at least one number."})
+        
+        if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+            raise serializers.ValidationError({'password': "Password must contain at least one special character."})
+        
+        password_validation.validate_password(data['password'])
+        return data
+    
+    def save(self, **kwargs):
+        password = self.validated_data['password']
+        user = User.objects.create(
+            username=self.validated_data['username'],
+            email=self.validated_data['email'],
+            first_name=self.validated_data['first_name'],
+            last_name=self.validated_data['last_name'],
+        )
+        user.set_password(password)
+        user.save()
+        return user

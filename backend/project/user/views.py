@@ -2,11 +2,23 @@ from .models import Profile
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework_simplejwt.views import TokenViewBase
-from .serializers import CustomLoginSerializer, CustomLogoutSerializer, ProfileSerializer, UserSerializer, ChangePasswordSerializer
+from .serializers import CustomLoginSerializer, CustomLogoutSerializer, ProfileSerializer, UserSerializer, ChangePasswordSerializer, RegisterUserSerializer
 from .throttles import LoginThrottle
 from rest_framework import viewsets, mixins, status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
+class RegisterViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    serializer_class = RegisterUserSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        profile = user.profile
+        profile_serializer = ProfileSerializer(profile, context={'request': request})
+        return Response(profile_serializer.data, status=status.HTTP_201_CREATED)
 
 class AccountViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Profile.objects.all()

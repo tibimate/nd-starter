@@ -9,10 +9,10 @@ class UpdateLastActivityMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-
+        
         member: User = request.user
         if member.is_authenticated:
             member.profile.last_activity = now()
-            member.save()
+            member.profile.save()
         return response
       

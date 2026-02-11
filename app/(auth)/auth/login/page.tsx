@@ -68,7 +68,7 @@ export default function LoginPage() {
           <CardDescription>
             Enter your username below to login to your account
             {success && (
-              <div className="bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-md text-sm mb-4">
+              <div className="bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-md text-sm mb-2 mt-4">
                 {success}
               </div>
             )}

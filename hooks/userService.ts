@@ -27,6 +27,11 @@ export const userService = {
     return response.data;
   },
 
+  async registerUser(data: AccountParams) {
+    const response = await axiosInstance.post(`/user/register/`, data);
+    return response.data;
+  },
+
 
   async updateAccount(data: AccountParams) {
     // If avatar file is being sent, use FormData for multipart/form-data encoding
