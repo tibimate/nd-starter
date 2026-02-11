@@ -117,9 +117,6 @@ function ActionsCell({ client, table }: ActionsCellProps) {
               <Trash className="size-3 mr-2" />
               Delete
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

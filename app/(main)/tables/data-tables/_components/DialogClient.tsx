@@ -174,6 +174,7 @@ export default function DialogClient({ children,client, onCreated, onUpdated, is
                 placeholder="Client Email"
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
+                required
               />
               {errors.email && <FieldDescription id="email-error" className="text-xs text-destructive">{errors.email}</FieldDescription>}
             </Field>
@@ -186,6 +187,7 @@ export default function DialogClient({ children,client, onCreated, onUpdated, is
                 placeholder="Tax Identification Number"
                 aria-invalid={!!errors.tin}
                 aria-describedby={errors.tin ? "tin-error" : undefined}
+                required
               />
               {errors.tin && <FieldDescription id="tin-error" className="text-xs text-destructive">{errors.tin}</FieldDescription>}
             </Field>
