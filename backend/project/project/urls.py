@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', CustomLogoutView.as_view(), name='token_blacklist'),
     path('user/', include('user.urls')),
+    path('clients/', include('clients.urls')),
 ]
 
 # Serve media files in development

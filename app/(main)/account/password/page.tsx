@@ -16,10 +16,7 @@ import {
   FieldSet,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea";
-import { Profile } from "@/types/models";
 import { toast } from "sonner";
-import { useSession } from "next-auth/react";
 
 export default function AccountPasswordPage() {
   const [loading, setLoading] = useState(false)

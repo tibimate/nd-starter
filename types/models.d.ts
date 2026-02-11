@@ -28,11 +28,23 @@ export interface Profile {
 }
 
 export interface APISession {
-    access: string;
-    exp: number;
-    created_at: Date;
-    updated_at: Date;
-    last_activity: Date | null;
-    profile: Profile;
-    refresh: string;
-  }
+  access: string;
+  exp: number;
+  created_at: Date;
+  updated_at: Date;
+  last_activity: Date | null;
+  profile: Profile;
+  refresh: string;
+}
+
+export interface Client {
+  id: number;
+  name: string;
+  email: string;
+  tin: string;
+  phone_number: string;
+  address: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}

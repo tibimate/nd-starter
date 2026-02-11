@@ -30,7 +30,6 @@ class AccountViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         user = self.request.user
         queryset = super().get_queryset()
         queryset = queryset.filter(user=user)
-
         return queryset
 
     

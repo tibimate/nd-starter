@@ -5,6 +5,8 @@ import {
   ChartAreaIcon,
   LayoutDashboardIcon,
   LineChartIcon,
+  Table2Icon,
+  TableCellsMergeIcon,
 } from "lucide-react"
 
 import {
@@ -19,6 +21,8 @@ import { NavUser } from "@/components/nav/nav-user"
 import { NavHeader } from "./nav/nav-header"
 import { NavCharts } from "./nav/nav-charts"
 import { usePathname } from 'next/navigation'
+import { title } from "process"
+import { NavTables } from "./nav/nav-tables"
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -52,7 +56,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         icon: LineChartIcon,
         isActive: currentPage === "/charts/line",
       },
-    ]
+    ],
+    navTables: [
+      {
+        title: "Data Tables",
+        url: "/tables/data-tables",
+        icon: TableCellsMergeIcon,
+        isActive: currentPage === "/tables/data-tables",
+      },
+      {
+        title: "Tables",
+        url: "/tables/tables",
+        icon: Table2Icon,
+        isActive: currentPage === "/tables/tables",
+      }
+    ],
   }
   
   return (
@@ -63,6 +81,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavCharts items={data.navCharts} />
+        <NavTables items={data.navTables} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />

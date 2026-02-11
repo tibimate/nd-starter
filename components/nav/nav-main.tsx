@@ -5,8 +5,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
 import Link from "next/link"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 export function NavMain({
   items,
 }: {
@@ -17,17 +19,39 @@ export function NavMain({
     isActive?: boolean
   }[]
 }) {
+  
+  const { open } = useSidebar()
+
   return (
     <SidebarMenu>
       {items.map((item) => (
+        
         <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild isActive={item.isActive}>
-            <Link href={item.url}>
-              <item.icon />
-              <span>{item.title}</span>
-            </Link>
-          </SidebarMenuButton>
+          {!open ?
+            <Tooltip>
+              <TooltipTrigger className="w-full">
+                <SidebarMenuButton asChild isActive={item.isActive}>
+                  <Link href={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <span>{item.title}</span>
+              </TooltipContent>
+            </Tooltip>
+          :
+            <SidebarMenuButton asChild isActive={item.isActive}>
+              <Link href={item.url}>
+                <item.icon />
+                <span>{item.title}</span>
+              </Link>
+            </SidebarMenuButton>
+            
+          }
         </SidebarMenuItem>
+        
       ))}
     </SidebarMenu>
   )

@@ -1,18 +1,22 @@
 "use client"
 
-import { EllipsisIcon, TrendingUp, type LucideIcon } from "lucide-react"
+import { type LucideIcon } from "lucide-react"
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+  useSidebar
 } from "@/components/ui/sidebar"
 import Link from "next/link"
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
-export function NavCharts({
+export function NavTables({
   items,
 }: {
   items: {
@@ -22,11 +26,12 @@ export function NavCharts({
     isActive?: boolean
   }[]
 }) {
+
   const { open } = useSidebar()
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Charts</SidebarGroupLabel>
+      <SidebarGroupLabel>Tables</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
@@ -55,30 +60,6 @@ export function NavCharts({
 
           </SidebarMenuItem>
         ))}
-        <SidebarMenuItem>
-          {!open ?
-            <Tooltip>
-              <TooltipTrigger className="w-full">
-                <SidebarMenuButton asChild>
-                  <a href="https://ui.shadcn.com/charts" target="_blank" rel="noopener noreferrer">
-                    <EllipsisIcon />
-                    <span className="text-zinc-600">More</span>
-                  </a>
-                </SidebarMenuButton>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                <span>More</span>
-              </TooltipContent>
-            </Tooltip>
-          :
-            <SidebarMenuButton asChild>
-              <a href="https://ui.shadcn.com/charts" target="_blank" rel="noopener noreferrer">
-                <EllipsisIcon />
-                <span className="text-zinc-600">More</span>
-              </a>
-            </SidebarMenuButton>
-          }
-          </SidebarMenuItem>
       </SidebarMenu>
     </SidebarGroup>
   )

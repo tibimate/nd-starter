@@ -84,11 +84,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <ToastProvider>
-            <AuthProvider>
-              <TooltipProvider>
+            <TooltipProvider>
+              <AuthProvider>
                 <App>{children}</App>
-              </TooltipProvider>
-            </AuthProvider>
+              </AuthProvider>
+            </TooltipProvider>
           </ToastProvider>
         </ThemeProvider>
       </body>
